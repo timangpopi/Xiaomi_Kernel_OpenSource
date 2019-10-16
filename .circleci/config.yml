@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  miui:
+    docker:
+      - image: fadlyas/my-docker-image:latest
+    steps:
+      - run: apt-get -y update && apt-get -y upgrade
+      - run: git clone --depth=1 https://github.com/timangpopi/Xiaomi_Kernel_OpenSource -b riva-n-oss .
+      - run: wget https://raw.githubusercontent.com/timangpopi/semaphore/master/Circle/MIUI-Version
+      - run: chmod +x MIUI-Version
+      - run: bash MIUI-Version
+workflows:
+  version: 2.1
+  cooking:
+    jobs:
+      - miui
